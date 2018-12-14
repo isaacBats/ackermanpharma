@@ -489,17 +489,16 @@
                         <!-- Aviso privacidad -->
                         <div class="col-md-12 form-group">
                            <div class="checkbox">
-                              <label><input type="checkbox" value="" name="acepto"> He leído y acepto el aviso de privacidad <a href="aviso_privacidad.pdf" target="_blank" >(Ver aviso de privacidad)</a></label>
+                              <label><input type="checkbox" value="" name="acepto" id="check-terminos"> He leído y acepto el aviso de privacidad <a href="aviso_privacidad.pdf" target="_blank" >(Ver aviso de privacidad)</a></label>
                            </div>
                         </div>
                         <!-- Submit Button -->
                         <div class="form-group col-12 text-right">
-                           <div class="">
-                              <button type="submit" class="g-recaptcha btn btn-primary" disabled
-                                data-sitekey="6LcYxYEUAAAAAOqL5WJ12kBRidGVJlNeLGGVIPSC"
-                                data-callback="onSubmit"
-                              >Enviar</button>
-                           </div>
+                            <button type="submit" class="g-recaptcha btn btn-primary"
+                              data-sitekey="6LcYxYEUAAAAAOqL5WJ12kBRidGVJlNeLGGVIPSC"
+                              data-callback="onSubmit"
+                              disabled
+                            >Enviar</button>
                         </div>
                      </div>
                   </form>
