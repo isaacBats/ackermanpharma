@@ -18,29 +18,8 @@
       <link rel="stylesheet" href="vendor/font-awesome-4.7.0/css/font-awesome.min.css">
       <!-- Custom styles for this template -->
       <link href="css/agency.css" rel="stylesheet">
-      <script>
-  function onSubmit(token) {
-    alert('thanks ' + document.getElementById('field').value);
-  }
-
-  function validate(event) {
-    event.preventDefault();
-    if (!document.getElementById('field').value) {
-      alert("You must add text to the required field");
-    } else {
-      grecaptcha.execute();
-    }
-  }
-
-  function onload() {
-    var element = document.getElementById('submit');
-    element.onclick = validate;
-  }
-</script>
-
-      <script src='https://www.google.com/recaptcha/api.js'>
-      </script>
-      
+      <!-- ReCaptcha 20181214 -->
+      <script src='https://www.google.com/recaptcha/api.js'></script>
    </head>
    <body id="page-top">
       <!-- Navigation -->
@@ -497,15 +476,15 @@
                      <div class="row">
                         <!-- Name -->
                         <div class="col-md-6 form-group">
-                           <input class="form-control main" name="nombre" type="text" placeholder="Nombre" >
+                           <input class="form-control main" name="nombre" id="name" type="text" placeholder="Nombre" required />
                         </div>
                         <!-- Email -->
                         <div class="col-md-6 form-group">
-                           <input class="form-control main" name="email" type="email" placeholder="Correo" >
+                           <input class="form-control main" name="email" id="email" type="email" placeholder="Correo"  required />
                         </div>
                         <!-- Message -->
                         <div class="col-md-12 form-group ">
-                           <textarea class="form-control main" name="mensaje" rows="10" placeholder="Mensaje"></textarea>
+                           <textarea class="form-control main" name="mensaje" id="message" rows="10" placeholder="Mensaje" required ></textarea>
                         </div>
                         <!-- Aviso privacidad -->
                         <div class="col-md-12 form-group">
@@ -513,13 +492,13 @@
                               <label><input type="checkbox" value="" name="acepto"> He leído y acepto el aviso de privacidad <a href="aviso_privacidad.pdf" target="_blank" >(Ver aviso de privacidad)</a></label>
                            </div>
                         </div>
-                        <button type="submit" class="g-recaptcha btn btn-primary" 
-                        data-sitekey="6Lf7g1cUAAAAABa7r6yHtNoEZq11nNoGE1N_ceO5" 
-                        data-callback="onSubmit">Enviar</button>
                         <!-- Submit Button -->
                         <div class="form-group col-12 text-right">
                            <div class="">
-                              <button type="submit" class="btn btn-primary">Enviar</button>
+                              <button type="submit" class="g-recaptcha btn btn-primary" disabled
+                                data-sitekey="6LcYxYEUAAAAAOqL5WJ12kBRidGVJlNeLGGVIPSC"
+                                data-callback="onSubmit"
+                              >Enviar</button>
                            </div>
                         </div>
                      </div>
@@ -531,7 +510,7 @@
             if(isset($_POST['email'])) {
             
             //destinatario
-            $email_to = "zaira.luis@ackermanpharma.com,mjpa@ackermanpharma.com";
+            $email_to = "zaira.luis@ackermanpharma.com,mjpa@ackermanpharma.com,sistemas@ackermanpharma.com";
             $email_subject = "Formulario de contacto Ackerman Pharma";
             
             // Aquí se deberían validar los datos ingresados por el usuario
@@ -643,8 +622,7 @@
                   <!-- Project Details Go Here -->
                   <h2 class="text-uppercase">Ortopedia</h2>
                   <img class="img-fluid img-responsive d-block mx-auto" src="images/products/aspen.jpg" width="90%" alt="ortopedia">
-                  <h4>Innovación para el cuidado de la espina dorsal
-</h4>
+                  <h4>Innovación para el cuidado de la espina dorsal</h4>
                   <p>Aspen Medical Products ® es líder en el desarrollo de dispositivos ortopédicos innovadores para la espina dorsal que se requieren para la estabilización post-traumática, para la estabilización pre y post-quirúrgica, manejo del dolor y cuidado del paciente a largo plazo.  </p>
 
                   <img class="img-fluid img-responsive d-block mx-auto" src="images/products/tynor.png" width="75%" alt="tynor">
@@ -930,7 +908,7 @@
     </div>
 
  <!-- Farmacias -->
-             <div class="portfolio-modal modal fade" id="portfolioFarmacias" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="portfolio-modal modal fade" id="portfolioFarmacias" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="close-modal" data-dismiss="modal">
@@ -944,17 +922,9 @@
                 <div class="modal-body">
                   <!-- Project Details Go Here -->
                   <h2 class="text-uppercase">Farmacias</h2>
-                  
                   <div class="col-md-12">
-                      <img class="img-fluid img-responsive d-block mx-auto" width="80%" src="images/products/farmacias.png"  alt="farmacias">
-                      </div>
-                     
-
-                      
-
-                     
-                     
-                 
+                    <img class="img-fluid img-responsive d-block mx-auto" width="80%" src="images/products/farmacias.png"  alt="farmacias">
+                  </div>
                   <button class="btn btn-primary" data-dismiss="modal" type="button">
                     <i class="fa fa-times"></i>
                     Cerrar</button>
@@ -974,113 +944,40 @@
       <!-- Plugin JavaScript -->
       <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
       <!-- Contact form JavaScript -->
-      <script src="js/jqBootstrapValidation.js"></script>
-      <script src="js/contact_me.js"></script>
-      <!-- Custom scripts for this template -->
       <script src="js/agency.min.js"></script>
-      <script src="http://formvalidation.io/vendor/formvalidation/js/formValidation.min.js"></script>
-      <script src="http://formvalidation.io/vendor/formvalidation/js/framework/bootstrap.min.js"></script>
       <script src="plugins/owl-carousel/owl.carousel.min.js"></script>
-      <script>
-         $(document).ready(function(){
-         // set up hover panels
-         // although this can be done without JavaScript, we've attached these events
-         // because it causes the hover to be triggered when the element is tapped on a touch device
-         $('.hover').hover(function(){
-         $(this).addClass('flip');
-         },function(){
-         $(this).removeClass('flip');
-         });
-         });
-      </script>
       <script>
          $(document).ready(function() {
                   
-                // -----------------------------
+            // -----------------------------
             //  Testimonial Slider
             // -----------------------------
             $('.testimonial-slider').owlCarousel({
-              loop:true,
-              margin:20,
-              pading:10,
-              dots:true,
-              autoplay:true,
-              responsive:{
-                  0:{
-                      items:1
-                  },
-                  400:{
-                      items:1
-                  },
-                  600:{
-                      items:1
-                  },
-                  1000:{
-                      items:2
-                  }
-              }
-          });
-         
-         
-             $('#contacto_form').formValidation({
-                 framework: 'bootstrap',
-                 icon: {
-                     valid: 'glyphicon glyphicon-ok',
-                     invalid: 'glyphicon glyphicon-remove',
-                     validating: 'glyphicon glyphicon-refresh'
-                 },
-                  row: {
-         	        valid: 'field-success',
-         	        invalid: 'field-error'
-         	    },
-                 fields: {
-                     nombre: {
-                         validators: {
-                             notEmpty: {
-                                 message: 'El nombre es requerido, favor de ingresarlo.'
-                             },
-                             stringLength: {
-                                 min: 6,
-                                 max: 60,
-                                 message: 'El nombre debe contener entre 6 y 60 caracteres'
-                             }
-                         }
-                     },
-                     email: {
-         	                    verbose: false,
-         	                    validators: {
-         	                        notEmpty: {
-         	                            message: 'El correo no puede estar vacío'
-         	                        },
-         	                        emailAddress: {
-         	                            message: 'Favor de escribir una dirección de correo válida'
-         	                        }
-         
-         	                    }
-         	               },
-         
-                     mensaje: {
-                         validators: {
-                             notEmpty: {
-                                 message: 'El mensaje es un campo requerido, favor de ingresarlo.'
-                             },
-                              stringLength: {
-                                 min: 4,
-                                 max: 500,
-                                 message: 'El mensaje debe contener entre 4 y 500 caracteres'
-                             }
-                         }
-                     },
-                      acepto: {
-                         validators: {
-                             notEmpty: {
-                                 message: 'Favor de aceptar haber leído el aviso de privacidad'
-                             }
-                         }
-                     }
-                 }
-             });
-         });
+                loop:true,
+                margin:20,
+                pading:10,
+                dots:true,
+                autoplay:true,
+                responsive:{
+                    0:{
+                        items:1
+                    },
+                    400:{
+                        items:1
+                    },
+                    600:{
+                        items:1
+                    },
+                    1000:{
+                        items:2
+                    }
+                }
+            });
+          });        
+
+        function onSubmit(token) {
+          console.log('Send message OK');
+        }
       </script>
    </body>
 </html>
