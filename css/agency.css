@@ -1407,6 +1407,11 @@ a:focus, a:hover {
     border-color: #a94442;
 }
 
+
+label.error {
+  color: #a94442;
+}
+
 .field-success .control-label,
 .field-success .help-block,
 .field-success .form-control {

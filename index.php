@@ -472,19 +472,20 @@
                      <h1>Lo atenderémos con gusto</h1>
                      <h3 >Favor de llenar la siguiente información, en breve uno de nuestros ejecutivos le atenderá.</h3>
                   </div>
-                  <form action="#contacto" id="contacto_form" method="post">
+                  <div id="mesageBoxError"></div>
+                  <form action="#contacto" id="contacto-form" method="post">
                      <div class="row">
                         <!-- Name -->
                         <div class="col-md-6 form-group">
-                           <input class="form-control main" name="nombre" id="name" type="text" placeholder="Nombre" required />
+                           <input class="form-control main" name="nombre" type="text" placeholder="Nombre" required />
                         </div>
                         <!-- Email -->
                         <div class="col-md-6 form-group">
-                           <input class="form-control main" name="email" id="email" type="email" placeholder="Correo"  required />
+                           <input class="form-control main" name="email" type="email" placeholder="Correo"  required />
                         </div>
                         <!-- Message -->
                         <div class="col-md-12 form-group ">
-                           <textarea class="form-control main" name="mensaje" id="message" rows="10" placeholder="Mensaje" required ></textarea>
+                           <textarea class="form-control main" name="mensaje" rows="10" placeholder="Mensaje" required ></textarea>
                         </div>
                         <!-- Aviso privacidad -->
                         <div class="col-md-12 form-group">
@@ -492,13 +493,10 @@
                               <label><input type="checkbox" value="" name="acepto" id="check-terminos"> He leído y acepto el aviso de privacidad <a href="aviso_privacidad.pdf" target="_blank" >(Ver aviso de privacidad)</a></label>
                            </div>
                         </div>
+                        <div class="g-recaptcha" data-sitekey="6LcZqoIUAAAAABSBENaYa1ff6l-EP_qUOMNmye8h"></div>
                         <!-- Submit Button -->
                         <div class="form-group col-12 text-right">
-                            <button type="submit" class="g-recaptcha btn btn-primary"
-                              data-sitekey="6LcYxYEUAAAAAOqL5WJ12kBRidGVJlNeLGGVIPSC"
-                              data-callback="onSubmit"
-                              disabled
-                            >Enviar</button>
+                            <button type="submit" id="btn-submit" class="btn btn-primary">Enviar</button>
                         </div>
                      </div>
                   </form>
@@ -510,6 +508,7 @@
             
             //destinatario
             $email_to = "zaira.luis@ackermanpharma.com,mjpa@ackermanpharma.com,sistemas@ackermanpharma.com";
+            //$email_to = "sistemas@ackermanpharma.com";
             $email_subject = "Formulario de contacto Ackerman Pharma";
             
             // Aquí se deberían validar los datos ingresados por el usuario
@@ -939,6 +938,7 @@
 
       <!-- Bootstrap core JavaScript -->
       <script src="vendor/jquery/jquery.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/jquery.validation/1.15.1/jquery.validate.min.js"></script>
       <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
       <!-- Plugin JavaScript -->
       <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
@@ -972,11 +972,26 @@
                     }
                 }
             });
+
+            $('#contacto-form').validate({
+              rules: {
+                nombre: { required: true, minlength: 4, maxlength: 25 },
+                email: { required: true, email: true },
+                mensaje: { required: true },
+                acepto: { required: true }
+              },
+              messages: {
+                nombre: "El nombre es necesario.",
+                email: { required: "El correo es necesario.", email: "No es un correo valido" },
+                mensaje: "De que manera podemos ayudarte.",
+                acepto: "Debes aceptar los terminos y condiciones"
+              },
+              submitHandler: function (form) {
+                $('#contacto-form').submit() 
+              }
+            })
           });        
 
-        function onSubmit(token) {
-          console.log('Send message OK');
-        }
       </script>
    </body>
 </html>
