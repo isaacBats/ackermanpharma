@@ -15,6 +15,8 @@
       <link href="plugins/owl-carousel/assets/owl.theme.green.min.css" rel="stylesheet" media="screen">
       <!-- Custom styles for this template -->
       <link href="css/agency.css" rel="stylesheet">
+      <!-- ReCaptcha 20181214 -->
+      <script src='https://www.google.com/recaptcha/api.js'></script>
    </head>
    <body id="page-top">
       <!-- Navigation -->
@@ -468,19 +470,19 @@
                      <h1>We will be happy to assist you</h1>
                      <h3 >Please fill in the following information, soon one of our executives will assist you.</h3>
                   </div>
-                  <form action="#contacto" id="contacto_form" method="post">
+                  <form action="#contacto" id="contacto-form" method="post">
                      <div class="row">
                         <!-- Name -->
                         <div class="col-md-6 form-group">
-                           <input class="form-control main" name="nombre" type="text" placeholder="Name" >
+                           <input class="form-control main" name="nombre" type="text" placeholder="Name" required />
                         </div>
                         <!-- Email -->
                         <div class="col-md-6 form-group">
-                           <input class="form-control main" name="email" type="email" placeholder="E-mail address" >
+                           <input class="form-control main" name="email" type="email" placeholder="E-mail address" required />
                         </div>
                         <!-- Message -->
                         <div class="col-md-12 form-group ">
-                           <textarea class="form-control main" name="mensaje" rows="10" placeholder="Your message"></textarea>
+                           <textarea class="form-control main" name="mensaje" rows="10" placeholder="Your message" required ></textarea>
                         </div>
                         <!-- Aviso privacidad -->
                         <div class="col-md-12 form-group">
@@ -488,6 +490,7 @@
                               <label><input type="checkbox" value="" name="acepto"> Privacy Notice Accept<a href="privacy_notice.pdf" target="_blank" >(Privacy Notice)</a></label>
                            </div>
                         </div>
+                        <div class="g-recaptcha" data-sitekey="6LcZqoIUAAAAABSBENaYa1ff6l-EP_qUOMNmye8h"></div>
                         <!-- Submit Button -->
                         <div class="form-group col-12 text-right">
                            <div class="">
@@ -935,31 +938,15 @@
 
       <!-- Bootstrap core JavaScript -->
       <script src="vendor/jquery/jquery.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/jquery.validation/1.15.1/jquery.validate.min.js"></script>
       <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
       <!-- Plugin JavaScript -->
       <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-      <!-- Contact form JavaScript -->
-      <script src="js/jqBootstrapValidation.js"></script>
-      <script src="js/contact_me.js"></script>
       <!-- Custom scripts for this template -->
       <script src="js/agency.min.js"></script>
-      <script src="http://formvalidation.io/vendor/formvalidation/js/formValidation.min.js"></script>
-      <script src="http://formvalidation.io/vendor/formvalidation/js/framework/bootstrap.min.js"></script>
       <script src="plugins/owl-carousel/owl.carousel.min.js"></script>
       <script>
-         $(document).ready(function(){
-         // set up hover panels
-         // although this can be done without JavaScript, we've attached these events
-         // because it causes the hover to be triggered when the element is tapped on a touch device
-         $('.hover').hover(function(){
-         $(this).addClass('flip');
-         },function(){
-         $(this).removeClass('flip');
-         });
-         });
-      </script>
-      <script>
-         $(document).ready(function() {
+        $(document).ready(function() {
                   
                 // -----------------------------
             //  Testimonial Slider
@@ -985,67 +972,24 @@
                   }
               }
           });
-         
-         
-             $('#contacto_form').formValidation({
-                 framework: 'bootstrap',
-                 icon: {
-                     valid: 'glyphicon glyphicon-ok',
-                     invalid: 'glyphicon glyphicon-remove',
-                     validating: 'glyphicon glyphicon-refresh'
-                 },
-                  row: {
-         	        valid: 'field-success',
-         	        invalid: 'field-error'
-         	    },
-                 fields: {
-                     nombre: {
-                         validators: {
-                             notEmpty: {
-                                 message: 'The name is required, please enter it.'
-                             },
-                             stringLength: {
-                                 min: 6,
-                                 max: 60,
-                                 message: 'The name must contain between 6 and 60 characters'
-                             }
-                         }
-                     },
-                     email: {
-         	                    verbose: false,
-         	                    validators: {
-         	                        notEmpty: {
-         	                            message: 'The mail can not be empty'
-         	                        },
-         	                        emailAddress: {
-         	                            message: 'Please enter a valid email address'
-         	                        }
-         
-         	                    }
-         	               },
-         
-                     mensaje: {
-                         validators: {
-                             notEmpty: {
-                                 message: 'The message is a required field, please enter it.'
-                             },
-                              stringLength: {
-                                 min: 4,
-                                 max: 500,
-                                 message: 'The message must contain between 4 and 500 characters.'
-                             }
-                         }
-                     },
-                      acepto: {
-                         validators: {
-                             notEmpty: {
-                                 message: 'Please accept having read the privacy notice.'
-                             }
-                         }
-                     }
-                 }
-             });
-         });
+         $('#contacto-form').validate({
+          rules: {
+            nombre: { required: true, minlength: 4, maxlength: 25 },
+            email: { required: true, email: true },
+            mensaje: { required: true },
+            acepto: { required: true }
+          },
+          messages: {
+            nombre: "The name is required.",
+            email: { required: "The mail can not be empty.", email: "Please enter a valid email address" },
+            mensaje: "The message is a required field, please enter it.",
+            acepto: "Please accept having read the privacy notice"
+          },
+          submitHandler: function (form) {
+            $('#contacto-form').submit() 
+          }
+        })
+     });
       </script>
    </body>
 </html>
